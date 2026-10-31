@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="180" viewBox="0 0 720 180" role="img" aria-labelledby="title desc">
+<title id="title">Mubash Elite</title><desc id="desc">Mubash Elite brand mark with ascending commerce bars and an upward growth arrow, with the tagline Grow, Optimize, Succeed.</desc>
+<defs><linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#0878e8"/><stop offset=".55" stop-color="#08b9f2"/><stop offset="1" stop-color="#53d7ff"/></linearGradient><linearGradient id="white" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cbdcf2"/></linearGradient></defs>
+<g transform="translate(8 13)">
+<path d="M8 121 L43 84 L65 103 L111 44" fill="none" stroke="url(#blue)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M94 44 L115 38 L109 60" fill="none" stroke="url(#blue)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M36 145 V88 L57 108 V145 Z" fill="url(#white)"/>
+<path d="M62 145 V76 L84 96 V145 Z" fill="url(#white)"/>
+<path d="M88 145 V57 L110 78 V145 Z" fill="url(#blue)"/>
+<path d="M10 145 L10 111 L31 89 L31 145 Z" fill="#138fe9" opacity=".92"/>
+</g>
+<g font-family="Arial, Helvetica, sans-serif" font-weight="800" letter-spacing="1.2">
+<text x="150" y="91" font-size="59" fill="url(#white)">MUBASH</text><text x="395" y="91" font-size="59" fill="url(#blue)">ELITE</text>
+</g>
+<text x="153" y="132" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="5.4" fill="#a9c5e4">GROW  ·  OPTIMIZE  ·  SUCCEED</text>
+</svg>

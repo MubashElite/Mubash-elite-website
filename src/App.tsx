@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Menu, X, Search, Filter,
   ExternalLink, ChevronDown, Check, Compass, Target, Zap, TrendingUp,
@@ -138,10 +137,10 @@ function App() {
     if (form.websiteTrap) { setStatus('Unable to submit this inquiry. Please try again.'); return; }
     setSending(true);
     try {
-      const result = await api.post('/api/inquiries', form);
-      setStatus(result.data?.emailSent
-        ? 'Your inquiry has been received. A confirmation has been sent to the Mubash Elite team.'
-        : 'Your inquiry has been securely recorded. Email notification is awaiting sender-domain configuration; you can also write directly to info@mubashelite.com.');
+      const response = await fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Unable to submit inquiry.');
+      setStatus('Your inquiry has been received. A notification has been sent to the Mubash Elite team.');
       setForm({ name:'', email:'', website:'', country:'', category:'', stage:'', area:'', description:'', budget:'', contact:'Email', websiteTrap:'' });
     } catch {
       setStatus('We could not submit your inquiry right now. Please email info@mubashelite.com directly.');

@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Navigate independent consultancy pages and service details",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "multi-page route navigation",
+      "service detail pages",
+      "direct URL rendering",
+      "page titles"
+    ],
+    "description": "Verifies the main navigation opens independent routes and a service card leads to its dedicated detail page.",
+    "steps": [
+      "Open the Home page",
+      "Select Services in the primary navigation",
+      "Open Conversion Rate Optimization",
+      "Refresh the service detail page"
+    ],
+    "expected": "The Services overview and service detail render at their own URLs after navigation and refresh."
+  },
+  {
+    "name": "Filter store research and open an attributed case study",
+    "viewport": "desktop",
+    "covers": [
+      "portfolio gallery",
+      "country and industry filters",
+      "store analysis route",
+      "external official store links",
+      "research attribution"
+    ],
+    "description": "Verifies portfolio filters narrow the collection and a selected store opens a dedicated analysis page with source attribution.",
+    "steps": [
+      "Open Portfolio",
+      "Filter the country to Canada",
+      "Search for Stanfield’s",
+      "Open View Analysis",
+      "Open the official store link in a new tab"
+    ],
+    "expected": "The matching store card is visible, the case-study route shows research attribution, and the official store link opens separately."
+  },
+  {
+    "name": "Search and read a dedicated blog article on mobile",
+    "viewport": "mobile",
+    "covers": [
+      "mobile navigation",
+      "blog category filtering",
+      "article detail routes",
+      "responsive article reading"
+    ],
+    "description": "Verifies mobile navigation and blog discovery lead to a readable standalone article page.",
+    "steps": [
+      "Open the mobile menu",
+      "Navigate to Blog",
+      "Search for product page",
+      "Open the matching article",
+      "Refresh the article page"
+    ],
+    "expected": "The article opens at its own URL and remains readable after refresh without horizontal overflow."
+  },
+  {
+    "name": "Submit and validate a project inquiry",
+    "viewport": "desktop",
+    "covers": [
+      "contact page route",
+      "required field validation",
+      "project inquiry backend persistence",
+      "email notification handling",
+      "mobile form layout"
+    ],
+    "description": "Verifies the contact page blocks incomplete submissions and accepts a complete inquiry through the existing backend.",
+    "steps": [
+      "Open Contact",
+      "Attempt submission with required fields empty",
+      "Complete name, valid business email, stage, improvement area and project description",
+      "Submit the inquiry"
+    ],
+    "expected": "The browser blocks incomplete fields; a complete submission shows the existing backend confirmation and email-delivery status."
+  }
+]

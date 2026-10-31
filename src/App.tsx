@@ -164,7 +164,7 @@ function App() {
   const Header = () => <header className="header">
     <div className="header-inner">
       {link('/','<M/>', 'brand')}
-      <div className="brand-copy">{link('/','MUBASH <b>ELITE</b>')}<small>SHOPIFY GROWTH INTELLIGENCE</small></div>
+      <div className="brand-copy">{link('/','MUBASH ELITE')}<small>SHOPIFY GROWTH INTELLIGENCE</small></div>
       <nav className={menuOpen ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
         {nav.map(([label,target]) => link(target,label, path === target ? 'active' : ''))}
         <div className="nav-dropdown"><button type="button">Explore <ChevronDown size={13}/></button><div className="dropdown-panel">

@@ -163,8 +163,7 @@ function App() {
   ] as const;
   const Header = () => <header className="header">
     <div className="header-inner">
-      {link('/','<M/>', 'brand')}
-      <div className="brand-copy">{link('/','MUBASH ELITE')}<small>SHOPIFY GROWTH INTELLIGENCE</small></div>
+      {link('/',<img className="brand-logo" src="/mubash-elite-logo.svg" alt="Mubash Elite — Grow, Optimize, Succeed" />,'brand-lockup')}
       <nav className={menuOpen ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
         {nav.map(([label,target]) => link(target,label, path === target ? 'active' : ''))}
         <div className="nav-dropdown"><button type="button">Explore <ChevronDown size={13}/></button><div className="dropdown-panel">
@@ -178,7 +177,7 @@ function App() {
 
   const Footer = () => <footer className="footer">
     <div className="footer-main">
-      <div><div className="footer-brand">MUBASH <b>ELITE</b></div><p>Intelligent Shopify growth.<br/>Better customer experiences.<br/>Stronger eCommerce foundations.</p></div>
+      <div><img className="footer-logo" src="/mubash-elite-logo.svg" alt="Mubash Elite — Grow, Optimize, Succeed" /><p>Intelligent Shopify growth.<br/>Better customer experiences.<br/>Stronger eCommerce foundations.</p></div>
       <div><span>EXPLORE</span>{nav.slice(0,7).map(([label,target]) => link(target,label))}</div>
       <div><span>CAPABILITIES</span>{services.slice(0,5).map(s => link('/services/'+s[5],s[0]))}</div>
       <div><span>CONTACT</span><a href="mailto:info@mubashelite.com">info@mubashelite.com</a><a href="mailto:mubashelitespecialist@gmail.com">mubashelitespecialist@gmail.com</a>{link('/contact','Project inquiry')}</div>

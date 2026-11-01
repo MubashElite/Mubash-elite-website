@@ -30,3 +30,38 @@
 @media(max-width:420px){.founder-home-inner{grid-template-columns:1fr}.founder-home-inner>img{width:132px;height:160px}.founder-home h2{font-size:29px}}
 
 @media(max-width:420px){.container{width:90%}.brand-copy{font-size:11px}.brand-copy small{font-size:8px}.hero-dark h1{font-size:38px}.hero-actions .button{width:100%}.stage-grid,.footer-main{grid-template-columns:1fr}.visual-bottom{gap:8px}.visual-bottom b{font-size:9px}.card-actions{flex-direction:column}}
+
+
+/* High-contrast brand header and first-screen readability */
+.header{background:rgba(7,21,47,.98);border-bottom:1px solid #244263;box-shadow:0 8px 28px rgba(3,12,27,.18)}
+.header-inner{min-height:82px}
+.brand-logo{width:252px;max-height:64px}
+.nav-links{color:#e4edf8;font-size:12px;gap:20px}
+.nav-links>a:hover,.nav-links>a.active{color:#65c7ff}
+.nav-dropdown>button{color:#e4edf8}
+.dropdown-panel{background:#0c2340;border-color:#284867;box-shadow:0 18px 40px rgba(0,0,0,.32)}
+.dropdown-panel a{color:#e4edf8}
+.dropdown-panel a:hover{background:#173b60;color:#8bd8ff}
+.menu-toggle{color:#fff}
+.nav-cta{background:linear-gradient(120deg,#0878d8,#12a9e8);color:#fff!important;border:1px solid #55c5ff;box-shadow:0 5px 16px rgba(0,126,220,.24)}
+.nav-cta:hover{background:linear-gradient(120deg,#0566bd,#078ecb)}
+.hero-dark{background:radial-gradient(ellipse at 78% 42%,rgba(24,88,139,.68) 0,transparent 42%),linear-gradient(118deg,#061326 0%,#0a2340 58%,#0c2c4a 100%);color:#fff}
+.hero-dark .eyebrow{color:#a8ddff}
+.hero-dark h1{color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.16)}
+.hero-dark h1 em{color:#8bd8ff}
+.hero-dark>div>div>p{color:#e0eaf5}
+.hero-proof{color:#d2e2f2}
+.hero-visual{background:rgba(7,24,44,.94);border:1px solid #4b789e;box-shadow:0 24px 65px rgba(0,0,0,.38)}
+.visual-top,.visual-bottom,.visual-metric small,.visual-bottom span{color:#c2d8eb}
+.visual-metric{border-color:#456986;background:#102d4a}
+.visual-metric strong,.visual-bottom b{color:#fff}
+.journey>div{color:#f0f7ff}
+.journey>svg{color:#8db9db}
+@media(max-width:760px){
+ .header-inner{height:72px;min-height:72px}
+ .brand-logo{width:210px;max-height:54px}
+ .nav-links{top:72px;background:#07152f;border-bottom:1px solid #244263}
+ .nav-links>a,.nav-dropdown>button{color:#edf5ff}
+ .dropdown-panel{background:#0c2340}
+ .hero-dark{padding:68px 0 64px}
+}

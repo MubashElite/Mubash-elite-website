@@ -59,6 +59,16 @@
 .testimonial-play{width:56px;height:56px;border:1px solid #91c8ed;border-radius:50%;display:grid;place-items:center;color:#a8dcff;transform:rotate(-45deg)}
 .testimonial-placeholder span{font-size:10px;letter-spacing:.15em;font-weight:700}
 .testimonial-placeholder small{font-size:10px;color:#b7cadb}
+.sales-video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.sales-video-card{overflow:hidden;border:1px solid #e1e7ed;border-radius:9px;background:#fff;box-shadow:0 10px 28px rgba(16,36,59,.07)}
+.sales-video-card video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#07182b}
+.sales-video-card>div{padding:18px 19px 20px}
+.sales-video-card span{font-size:9px;letter-spacing:.13em;color:#287fc4;font-weight:700}
+.sales-video-card h3{font:700 17px/1.35 var(--head);color:#172638;margin:9px 0}
+.sales-video-card p{font-size:12px;line-height:1.7;color:#687789;margin:0}
+.testimonial-video-wrap{width:100%;min-height:280px;aspect-ratio:16/9;overflow:hidden;border-radius:10px;background:#07182b;box-shadow:0 14px 38px rgba(16,36,59,.16)}
+.testimonial-video-wrap iframe{display:block;width:100%;height:100%;min-height:280px;border:0}
+@media(max-width:760px){.sales-video-grid{grid-template-columns:1fr}.testimonial-video-wrap,.testimonial-video-wrap iframe{min-height:220px}}
 @media(max-width:760px){.sales-proof-intro,.sales-proof-testimonial{display:grid;grid-template-columns:1fr;gap:25px}.sales-metric-grid,.sales-case-grid{grid-template-columns:1fr}.sales-proof-stamp{min-width:0;width:100%}.sales-metric-card{min-height:0}.testimonial-placeholder{min-height:210px}}
 
 

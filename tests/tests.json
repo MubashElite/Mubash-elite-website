@@ -19,6 +19,25 @@
     "expected": "The Services overview and service detail render at their own URLs after navigation and refresh."
   },
   {
+    "name": "Open the Sales Proof page and review client outcome evidence",
+    "viewport": "desktop",
+    "covers": [
+      "Sales Proof route",
+      "navigation link to Sales Proof",
+      "client performance metric cards",
+      "project breakdowns",
+      "evidence attribution disclaimer"
+    ],
+    "description": "Verifies visitors can open the dedicated Sales Proof page and read its outcome metrics, project summaries and evidence context.",
+    "steps": [
+      "Open the Sales Proof navigation link",
+      "Review the performance snapshots",
+      "Scroll to project breakdowns",
+      "Review the evidence integrity note"
+    ],
+    "expected": "The Sales Proof page displays six outcome metrics, six corresponding project summaries and a clear note explaining how results should be interpreted."
+  },
+  {
     "name": "Filter store research and open an attributed case study",
     "viewport": "desktop",
     "covers": [

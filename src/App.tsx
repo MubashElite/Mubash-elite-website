@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { api } from '@appdeploy/client';
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Menu, X, Search, Filter,
   ExternalLink, ChevronDown, Check, Compass, Target, Zap, TrendingUp,
@@ -96,8 +97,7 @@ function App() {
   const [country, setCountry] = useState('All countries');
   const [industry, setIndustry] = useState('All industries');
   const [catalogue, setCatalogue] = useState('All store types');
-  const [storeSearch, setStoreSearch] = useState('');
-  const [blogSearch, setBlogSearch] = useState('');
+  const [storeSearch, setStoreSearch] = useState('');  const [blogSearch, setBlogSearch] = useState('');
   const [blogCategory, setBlogCategory] = useState('All topics');
   const [form, setForm] = useState({ name:'', email:'', website:'', country:'', category:'', stage:'', area:'', description:'', budget:'', contact:'Email', websiteTrap:'' });
   const [status, setStatus] = useState('');
@@ -114,6 +114,7 @@ function App() {
       path === '/services' ? 'Shopify Growth Services | Mubash Elite' :
       path === '/portfolio' ? 'Shopify Store Portfolio | Mubash Elite' :
       path === '/case-studies' ? 'Shopify Store Case Studies | Mubash Elite' :
+      path === '/sales-proof' ? 'Sales Proof & Shopify Results | Mubash Elite' :
       path === '/growth-insights' ? 'eCommerce Growth Intelligence | Mubash Elite' :
       path === '/blog' ? 'eCommerce Insights & Shopify Blog | Mubash Elite' :
       path === '/contact' ? 'Contact Mubash Elite | Shopify Growth' :
@@ -137,9 +138,7 @@ function App() {
     if (form.websiteTrap) { setStatus('Unable to submit this inquiry. Please try again.'); return; }
     setSending(true);
     try {
-      const response = await fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.error || 'Unable to submit inquiry.');
+      await api.post('/api/inquiries', form);
       setStatus('Your inquiry has been received. A notification has been sent to the Mubash Elite team.');
       setForm({ name:'', email:'', website:'', country:'', category:'', stage:'', area:'', description:'', budget:'', contact:'Email', websiteTrap:'' });
     } catch {
@@ -159,7 +158,7 @@ function App() {
 
   const nav = [
     ['Home','/'],['About','/about'],['Services','/services'],['Portfolio','/portfolio'],
-    ['Case Studies','/case-studies'],['Growth Insights','/growth-insights'],['Blog','/blog'],['Contact','/contact']
+    ['Case Studies','/case-studies'],['Sales Proof','/sales-proof'],['Growth Insights','/growth-insights'],['Blog','/blog'],['Contact','/contact']
   ] as const;
   const Header = () => <header className="header">
     <div className="header-inner">
@@ -167,7 +166,7 @@ function App() {
       <nav className={menuOpen ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
         {nav.map(([label,target]) => link(target,label, path === target ? 'active' : ''))}
         <div className="nav-dropdown"><button type="button">Explore <ChevronDown size={13}/></button><div className="dropdown-panel">
-          {link('/services','All services')}{link('/portfolio','Store gallery')}{link('/case-studies','Research case studies')}{link('/growth-insights','Growth intelligence')}
+          {link('/services','All services')}{link('/portfolio','Store gallery')}{link('/case-studies','Research case studies')}{link('/sales-proof','Sales proof & results')}{link('/growth-insights','Growth intelligence')}
         </div></div>
         {link('/contact',<>Discuss your project <ArrowUpRight size={15}/></>,'nav-cta')}
       </nav>
@@ -197,7 +196,6 @@ function App() {
     </div>
     <div className="store-info"><div className="store-meta"><span>{store.country}</span><span>{store.industry}</span></div><h3>{store.name}</h3><p>{store.observation}</p><div className="store-tags"><span>{store.range}</span><span>{store.style}</span></div><div className="card-actions"><a href={store.url} target="_blank" rel="noreferrer">View store <ExternalLink size={14}/></a>{link('/case-studies/'+slugify(store.name),<>View analysis <ArrowUpRight size={14}/></>)}</div></div>
   </article>;
-
   const ServiceCard = ({service,index}:{service:typeof services[number];index:number}) => <article className="service-card"><div className="service-number">0{index+1}</div><h3>{service[0]}</h3><p>{service[1]}</p><div className="service-problem"><span>THE BUSINESS NEED</span>{service[2]}</div><div className="service-benefit"><span>THE VALUE</span>{service[4]}</div>{link('/services/'+service[5],<>Explore service <ArrowUpRight size={15}/></>,'text-link')}</article>;
 
   const ArticleCard = ({article}:{article:typeof articles[number]}) => <article className="article-card"><div className="article-art"><span>{article.category}</span><BookOpen size={34}/><small>MUBASH ELITE / FIELD NOTES</small></div><div className="article-meta"><span>{article.date}</span><span>{article.read}</span></div><h3>{article.title}</h3><p>{article.excerpt}</p>{link('/blog/'+article.slug,<>Read article <ArrowUpRight size={15}/></>,'text-link')}</article>;
@@ -268,28 +266,33 @@ function App() {
       <section className="section section-white"><div className="container detail-layout"><div className="case-content"><div className="case-meta"><span>{store.country}</span><span>{store.industry}</span><span>{store.range}</span></div><h2>Positioning & <em>store experience.</em></h2><p>{store.analysis}</p><h3>What the storefront can teach</h3><p>{store.lesson}</p><h3>Areas to examine</h3><ul><li>How the homepage communicates product and brand value.</li><li>Whether collection navigation supports fast product discovery.</li><li>How product pages answer purchase questions and reduce uncertainty.</li><li>Whether mobile interactions and performance support the journey.</li></ul><div className="source-panel"><ShieldCheck/><div><b>Research attribution</b><p>Observations and any reported business results are attributed to the original source. This is independent research, not a Mubash Elite client engagement or performance claim.</p><a href={store.source} target="_blank" rel="noreferrer">Open research source <ExternalLink size={14}/></a></div></div></div><aside className="detail-panel"><span>BRAND REFERENCE</span><h3>{store.name}</h3><p>{store.country} · {store.industry}</p><a className="button button-primary" href={store.url} target="_blank" rel="noreferrer">Explore official store <ExternalLink size={14}/></a><a className="text-link" href={store.source} target="_blank" rel="noreferrer">Original research source <ArrowUpRight size={14}/></a></aside></div></section><CTA title="Want an independent review of your Shopify store?"/>
     </> : null;
   }
-  else if (path === '/growth-insights') page = <>
+  else if (path === '/sales-proof') page = <>
+    <PageIntro kicker="CLIENT WORK / SALES PROOF" title={<>Real projects. Measurable <em>store improvements.</em></>} lead="A selection of Shopify optimization outcomes, client feedback and project evidence from hands-on work. Each result is presented with its original context so visitors can understand what was improved."/>
+    <section className="section section-dark sales-proof-hero"><div className="container"><div className="sales-proof-intro"><div><Eyebrow>PERFORMANCE SNAPSHOTS</Eyebrow><h2>Progress made <em>visible.</em></h2><p>These figures represent outcomes from the projects documented in this portfolio. Results vary by store, baseline, implementation and measurement period.</p></div><div className="sales-proof-stamp"><ShieldCheck size={25}/><span>CLIENT PROJECT EVIDENCE</span><small>Shared with permission</small></div></div><div className="sales-metric-grid">
+      {[
+        ['38 → 96','PageSpeed score','Skincare store optimization'],
+        ['1.1% → 3.2%','Conversion rate','Store conversion improvement'],
+        ['18.2K → 412K','Search impressions','Organic visibility growth'],
+        ['184 → 3','Crawl errors','Technical SEO cleanup'],
+        ['−34%','Mobile checkout abandonment','Checkout journey improvement'],
+        ['+184%','Revenue growth','Shopify Plus rebuild · 90 days']
+      ].map((m,i)=><article className="sales-metric-card" key={m[1]}><span>0{i+1} / OUTCOME</span><strong>{m[0]}</strong><h3>{m[1]}</h3><p>{m[2]}</p></article>)}
+    </div></div></section>
+    <section className="section section-white"><div className="container"><div className="section-heading"><div><Eyebrow>PROJECT BREAKDOWNS</Eyebrow><h2>From store challenge to <em>measurable change.</em></h2></div><p>Each project should be judged against its starting point, scope and reporting window.</p></div><div className="sales-case-grid">
+      {[
+        ['Store speed & experience','PageSpeed 38 → 96','Improved storefront performance and page experience for a skincare store.'],
+        ['Conversion optimization','Conversion rate 1.1% → 3.2%','Focused on reducing friction and improving the path from product discovery to purchase.'],
+        ['Technical SEO recovery','Crawl errors 184 → 3','Resolved technical crawl issues and strengthened the store’s search foundations.'],
+        ['Organic visibility','Impressions 18.2K → 412K','Improved search visibility through technical and content-focused SEO work.'],
+        ['Mobile checkout improvement','34% lower abandonment','Addressed mobile checkout friction to support a clearer purchase journey.'],
+        ['Shopify Plus rebuild','184% revenue growth in 90 days','Rebuilt the commerce experience with a focus on the store’s commercial and operational needs.']
+      ].map((c,i)=><article className="sales-case-card" key={c[0]}><span>PROJECT 0{i+1}</span><h3>{c[0]}</h3><strong>{c[1]}</strong><p>{c[2]}</p></article>)}
+    </div><div className="source-panel sales-proof-note"><ShieldCheck/><div><b>How to read these results</b><p>Figures are presented as supplied for the corresponding client projects. The measurement platform, reporting dates, baseline definitions and full supporting screenshots should accompany each case study wherever available. Outcomes are not guarantees of future performance.</p></div></div></div></section>
+    <section className="section section-soft"><div className="container sales-proof-testimonial"><div><Eyebrow>CLIENT EXPERIENCE</Eyebrow><h2>Trust is built through <em>the work.</em></h2><p>The original Sales Proof page includes a client video testimonial. The video itself has not yet been embedded here because its original media URL or file was not available in the page content I could retrieve.</p><p>Once the original video file or public embed link is supplied, it can be placed here with captions and accessible playback controls.</p></div><div className="testimonial-placeholder"><div className="testimonial-play"><ArrowRight size={22}/></div><span>CLIENT VIDEO TESTIMONIAL</span><small>Original video asset to be connected</small></div></div></section><CTA title="Want to improve the performance of your Shopify store?" copy="Share your store and the outcome you are working toward. We can identify the right opportunity and agree a practical next step."/>
+  </>;
+  else if (path === '/growth-insights') page = <> 
     <PageIntro kicker="ECOMMERCE GROWTH INTELLIGENCE" title={<>Evidence, context and <em>commercial lessons.</em></>} lead="Explore publicly documented merchant outcomes alongside practical observations about the systems and experiences that support eCommerce growth."/>
     <section className="section section-white"><div className="container"><div className="evidence-grid evidence-grid-light">{evidence.map(e=><article className="evidence-card" key={e.brand}><span>{e.country} · {e.source}</span><strong>{e.metric}</strong><small>{e.period}</small><p>{e.note}</p><a href={e.url} target="_blank" rel="noreferrer">Read original evidence <ExternalLink size={14}/></a></article>)}</div><div className="source-panel"><ShieldCheck/><div><b>Evidence integrity</b><p>These are third-party results reported by the named publishers and merchants. They are not Mubash Elite case studies, guarantees or typical expected outcomes. Attribution and reporting periods vary by source.</p></div></div></div></section><section className="section section-dark"><div className="container"><Eyebrow>RESEARCH PERSPECTIVES</Eyebrow><h2>Turn merchant stories into <em>better questions.</em></h2><div className="principle-grid">{[['Conversion context','A reported conversion change should be read alongside the migration, traffic mix, measurement window and other changes made.'],['Customer experience','Look for the experience decisions that reduced friction, clarified product value or supported repeat purchase.'],['Operational foundations','Growth stories often include systems, fulfilment, international selling and data—not just page design.']].map((x,i)=><article className="principle-card dark-card" key={x[0]}><span>0{i+1}</span><h3>{x[0]}</h3><p>{x[1]}</p></article>)}</div></div></section><CTA/>
   </>;
   else if (path === '/blog') page = <>
     <PageIntro kicker="THE MUBASH ELITE JOURNAL" title={<>Practical thinking for <em>better eCommerce.</em></>} lead="Guides and perspectives for Shopify merchants who want to understand the decisions behind a stronger storefront and customer experience."/>
-    <section className="section section-white"><div className="container"><div className="blog-tools"><label><Search size={16}/><input value={blogSearch} onChange={e=>setBlogSearch(e.target.value)} placeholder="Search articles and topics"/></label><select value={blogCategory} onChange={e=>setBlogCategory(e.target.value)}>{categories.map(c=><option key={c}>{c}</option>)}</select></div><div className="article-grid">{filteredArticles.map(a=><ArticleCard key={a.slug} article={a}/>)}</div>{filteredArticles.length===0 && <p>No articles match that search. Try another topic.</p>}</div></section><section className="newsletter-panel"><div className="container"><Eyebrow>EDITORIAL UPDATES</Eyebrow><h2>Useful insight, without the noise.</h2><p>New articles will be published here as the research library grows. A newsletter signup will be added when a verified subscription service is configured.</p></div></section>
-  </>;
-  else if (articleMatch) {
-    const article = articles.find(a=>a.slug===articleMatch[1]);
-    page = article ? <>
-      <section className="article-hero"><div className="reading-width"><Eyebrow>{article.category}</Eyebrow><h1>{article.title}</h1><p>{article.excerpt}</p><div className="article-meta"><span><CalendarDays size={14}/>{article.date}</span><span><Clock3 size={14}/>{article.read}</span></div></div></section>
-      <section className="article-body"><div className="reading-width"><div className="article-cover-art"><BookOpen size={42}/><span>MUBASH ELITE / COMMERCE FIELD NOTES</span></div>{article.sections.map((s,i)=><section key={s[0]}><h2>{s[0]}</h2><p>{s[1]}</p></section>)}<div className="article-related"><h3>Explore related expertise</h3>{link('/services/conversion-optimization','Conversion Rate Optimization')}{link('/services/product-page-optimization','Product Page Optimization')}{link('/contact','Discuss your store')}</div><h3>More from the journal</h3><div className="related-articles">{articles.filter(a=>a.slug!==article.slug).slice(0,2).map(a=><div key={a.slug}>{link('/blog/'+a.slug,a.title)}</div>)}</div></div></section><CTA title="Put these ideas into context for your store."/>
-    </> : null;
-  }
-  else if (path === '/contact') page = <ContactPage/>;
-  else if (path === '/privacy' || path === '/terms') page = <>
-    <PageIntro kicker="MUBASH ELITE / INFORMATION" title={path==='/privacy'?'Privacy information':'Website terms'} lead="A clear starting point for understanding how this website and its inquiry process are intended to work."/>
-    <section className="section section-white"><div className="container legal-copy"><h2>{path==='/privacy'?'Privacy notice':'Terms of use'}</h2>{path==='/privacy'?<><p>Information submitted through the project inquiry form is used to review and respond to the request. Inquiry details may be stored securely for business follow-up and are not intended to include passwords or payment information.</p><p>For questions about an inquiry or a privacy request, contact <a href="mailto:info@mubashelite.com">info@mubashelite.com</a>.</p><p>This notice is a general website statement and should be reviewed and expanded for applicable privacy laws in the markets served before commercial launch.</p></>:<><p>Website content and independent store research are provided for general informational purposes. Public merchant results remain attributed to their original publishers and should not be interpreted as typical outcomes or guarantees.</p><p>Specific service scope, deliverables, timelines and fees are agreed individually before work begins. No sales or revenue outcome is guaranteed.</p></>}</div></section>
-  </>;
-  else page = <section className="section section-white not-found"><div className="container"><Eyebrow>404 / PAGE NOT FOUND</Eyebrow><h1>This page is not part of the journey.</h1><p>The page may have moved or the address may be incorrect.</p>{link('/',<>Return home <ArrowLeft size={16}/></>,'button button-primary')}</div></section>;
-
-  return <div className="app-shell"><Header/><main>{page}</main><Footer/><button className="back-top" onClick={()=>window.scrollTo({top:0,behavior:'smooth'})} aria-label="Back to top">↑</button></div>;
-}
-export default App;

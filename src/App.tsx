@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Menu, X, Search, Filter,
   ExternalLink, ChevronDown, Check, Compass, Target, Zap, TrendingUp,
@@ -138,7 +137,8 @@ function App() {
     if (form.websiteTrap) { setStatus('Unable to submit this inquiry. Please try again.'); return; }
     setSending(true);
     try {
-      await api.post('/api/inquiries', form);
+      const response = await fetch('/api/inquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
+      if (!response.ok) throw new Error('Inquiry submission failed');
       setStatus('Your inquiry has been received. A notification has been sent to the Mubash Elite team.');
       setForm({ name:'', email:'', website:'', country:'', category:'', stage:'', area:'', description:'', budget:'', contact:'Email', websiteTrap:'' });
     } catch {

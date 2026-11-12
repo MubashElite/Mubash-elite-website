@@ -89,6 +89,41 @@ function relativePath(target: string, current: string) {
   const prefix = '../'.repeat(depth);
   return target === '/' ? (prefix || './') : prefix + target.replace(/^\//,'');
 }
+
+const heroPhrases = [
+  'Welcome to Mubash Elite.',
+  'Looking to grow your Shopify store? You’re in the right place.',
+  'I build smarter storefronts and customer journeys that turn more visits into meaningful action.',
+  'From visibility to conversion, let’s make every customer interaction count.'
+];
+
+function HeroIntroRotator() {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const phrase = heroPhrases[phraseIndex];
+    const complete = typedText === phrase;
+    const delay = isDeleting ? 30 : complete ? 1750 : 62;
+    const timer = window.setTimeout(() => {
+      if (!isDeleting && !complete) {
+        setTypedText(phrase.slice(0, typedText.length + 1));
+      } else if (!isDeleting && complete) {
+        setIsDeleting(true);
+      } else if (isDeleting && typedText.length > 0) {
+        setTypedText(typedText.slice(0, -1));
+      } else {
+        setIsDeleting(false);
+        setPhraseIndex((current) => (current + 1) % heroPhrases.length);
+      }
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [phraseIndex, typedText, isDeleting]);
+
+  return <h1 className="hero-type-heading" aria-live="polite"><span>{typedText}</span><i className="typing-caret" aria-hidden="true" /></h1>;
+}
+
 function App() {
   const [path, setPath] = useState(window.location.pathname.replace(/\/$/,'') || '/');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -224,7 +259,7 @@ function App() {
   const articleMatch = path.match(/^\/blog\/([^/]+)$/);
 
   if (path === '/') page = <>
-    <section className="hero-dark"><div className="container hero-grid"><div><Eyebrow>SHOPIFY GROWTH STRATEGY / CONVERSION INTELLIGENCE</Eyebrow><h1>Build a Shopify store that turns more visitors into <em>customers.</em></h1><p>Strategic Shopify optimization, intelligent customer experiences and conversion-focused growth solutions for ambitious eCommerce brands.</p><div className="hero-actions">{link('/contact',<>Request a Store Growth Assessment <ArrowUpRight size={16}/></>,'button button-primary')}{link('/portfolio',<>Explore my work <ArrowRight size={16}/></>,'button button-outline')}</div><div className="hero-proof"><span><ShieldCheck/> Research-led decisions</span><span><Target/> Conversion-focused execution</span></div></div><div className="hero-visual"><div className="visual-top"><span>COMMERCE EXPERIENCE / OVERVIEW</span><span className="live-indicator">STRATEGY VIEW</span></div><div className="visual-metric"><div><small>STORE EXPERIENCE</small><strong>Discover → Decide → Purchase</strong></div><Layers3/></div><div className="journey"><div><ShoppingBag/><span>Product discovery</span></div><ArrowRight/><div><BrainCircuit/><span>Purchase confidence</span></div><ArrowRight/><div><TrendingUp/><span>Conversion path</span></div></div><div className="visual-bottom"><div><span>01 / DIAGNOSE</span><b>Identify friction</b></div><div><span>02 / PRIORITIZE</span><b>Map opportunity</b></div><div><span>03 / IMPROVE</span><b>Execute with intent</b></div></div></div></div></section>
+    <section className="hero-dark"><div className="container hero-grid"><div><Eyebrow>SHOPIFY GROWTH STRATEGY / CONVERSION INTELLIGENCE</Eyebrow><HeroIntroRotator/><p>Strategic Shopify growth, conversion optimization and customer experiences designed to help ambitious eCommerce brands turn attention into action.</p><div className="hero-actions">{link('/contact',<>Request a Store Growth Assessment <ArrowUpRight size={16}/></>,'button button-primary')}{link('/portfolio',<>Explore my work <ArrowRight size={16}/></>,'button button-outline')}</div><div className="hero-proof"><span><ShieldCheck/> Research-led decisions</span><span><Target/> Conversion-focused execution</span></div></div><div className="hero-visual"><div className="visual-top"><span>COMMERCE EXPERIENCE / OVERVIEW</span><span className="live-indicator">STRATEGY VIEW</span></div><div className="visual-metric"><div><small>STORE EXPERIENCE</small><strong>Discover → Decide → Purchase</strong></div><Layers3/></div><div className="journey"><div><ShoppingBag/><span>Product discovery</span></div><ArrowRight/><div><BrainCircuit/><span>Purchase confidence</span></div><ArrowRight/><div><TrendingUp/><span>Conversion path</span></div></div><div className="visual-bottom"><div><span>01 / DIAGNOSE</span><b>Identify friction</b></div><div><span>02 / PRIORITIZE</span><b>Map opportunity</b></div><div><span>03 / IMPROVE</span><b>Execute with intent</b></div></div></div></div></section>
     <section className="section section-dark home-testimonial"><div className="container"><div className="home-testimonial-heading"><div><Eyebrow>CLIENT EXPERIENCE</Eyebrow><h2>Hear it from a <em>client.</em></h2><p>Explore an original buyer testimonial and hear directly about the experience of working with Mubash Elite.</p></div><span className="home-testimonial-tag"><ShieldCheck size={18}/> ORIGINAL CLIENT FEEDBACK</span></div><div className="home-testimonial-player"><iframe src="https://player.cloudinary.com/embed/?cloud_name=rkyfvlbv&public_id=WhatsApp_Video_2026-08-06_at_00.10.48_f0n2s4&player%5Bfluid%5D=true&player%5Bcontrols%5D=true&player%5Bautoplay%5D=false&player%5Bmuted%5D=false&player%5BshowJumpControls%5D=true&player%5Bcolors%5D%5Baccent%5D=%23b98a4a" title="Mubash Elite client video testimonial" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowFullScreen loading="lazy"></iframe></div><div className="home-testimonial-action">{link('/sales-proof',<>View full case studies <ArrowUpRight size={16}/></>,'button button-primary')}</div></div></section>
     <section className="section section-white"><div className="container split-intro"><div><Eyebrow>BEYOND STORE DESIGN</Eyebrow><h2>Built around <em>business growth.</em></h2></div><div><p>Mubash Elite approaches Shopify as a connected customer experience — from first interaction and product discovery to purchase confidence, checkout and retention.</p>{link('/about',<>Learn about the approach <ArrowUpRight size={15}/></>,'text-link')}</div></div></section>
     <section className="section section-white founder-home"><div className="container founder-home-inner"><img src="https://raw.githubusercontent.com/MubashElite/Mubash-elite-website/main/mubash-founder-portrait.png" alt="Mubash, Founder and Shopify Growth Strategist"/><div><Eyebrow>MEET THE FOUNDER</Eyebrow><h2>Growth strategy with a <em>customer-first perspective.</em></h2><h3>Mubash <span>Founder & Shopify Growth Strategist</span></h3><p>I help Shopify businesses strengthen their digital storefronts through strategic optimization, intelligent eCommerce solutions and conversion-focused customer experiences.</p>{link('/about',<>Meet Mubash <ArrowUpRight size={15}/></>,'text-link')}</div></div></section>

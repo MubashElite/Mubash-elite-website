@@ -117,3 +117,22 @@
  .dropdown-panel{background:#0c2340}
  .hero-dark{padding:68px 0 64px}
 }
+
+
+/* Premium homepage motion and refined gradient media frames */
+.hero-type-heading{font:750 clamp(42px,5.1vw,68px)/1.08 var(--head);letter-spacing:-.055em;color:#fff;min-height:2.2em;max-width:760px;margin:20px 0 22px;display:block}
+.hero-type-heading>span{background:linear-gradient(105deg,#fff 4%,#d9f2ff 42%,#83d7ff 72%,#b8a5ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.typing-caret{display:inline-block;width:3px;height:.82em;margin-left:7px;vertical-align:-.04em;background:linear-gradient(180deg,#70e1ff,#8c8cff);border-radius:3px;box-shadow:0 0 18px rgba(85,194,255,.8);animation:heroCaretBlink .85s steps(2,start) infinite}
+@keyframes heroCaretBlink{to{visibility:hidden}}
+.hero-dark .hero-grid>div:first-child>p{max-width:590px;font-size:15px;line-height:1.9;color:#d8e8f6}
+.hero-dark .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:9px 13px;border:1px solid rgba(112,196,245,.25);border-radius:999px;background:rgba(74,151,206,.1);backdrop-filter:blur(10px);letter-spacing:.14em}
+.hero-dark .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#65e0c0;box-shadow:0 0 12px #65e0c0}
+.hero-visual{position:relative;isolation:isolate;border:1px solid transparent;background:linear-gradient(145deg,rgba(7,24,44,.98),rgba(13,48,77,.98)) padding-box,linear-gradient(135deg,#39d7ff 0%,#3979ff 38%,#9a6cff 70%,#4ce0ce 100%) border-box;box-shadow:0 28px 80px rgba(0,0,0,.4),0 0 42px rgba(47,145,232,.13)}
+.hero-visual:before{content:"";position:absolute;inset:-1px;border-radius:13px;padding:1px;background:linear-gradient(135deg,rgba(77,220,255,.48),rgba(104,117,255,.18),rgba(169,116,255,.38));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:-1}
+.home-testimonial-player,.testimonial-video-wrap,.sales-video-card,.founder-photo-wrap,.founder-home-inner>img{border:2px solid transparent;background:linear-gradient(#07182b,#07182b) padding-box,linear-gradient(135deg,#38d8ff 0%,#4d82ff 36%,#a06bff 68%,#49e2ca 100%) border-box;box-shadow:0 18px 48px rgba(5,24,45,.24),0 0 24px rgba(64,147,255,.1)}
+.sales-video-card{padding:2px;background:linear-gradient(145deg,#fff,#f8fbff) padding-box,linear-gradient(135deg,#38d8ff 0%,#4d82ff 36%,#a06bff 68%,#49e2ca 100%) border-box}
+.sales-video-card>div{background:#fff;border-radius:0 0 7px 7px}
+img:not(.brand-logo),video{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#38d8ff 0%,#4d82ff 36%,#a06bff 68%,#49e2ca 100%) border-box;box-shadow:0 12px 32px rgba(8,34,61,.16)}
+.home-testimonial-player iframe,.testimonial-video-wrap iframe{border:0}
+@media(max-width:760px){.hero-type-heading{font-size:clamp(37px,10vw,48px);min-height:3.25em;margin:18px 0}.hero-dark .hero-grid>div:first-child>p{font-size:14px}.hero-visual{border-radius:10px}.home-testimonial-player,.testimonial-video-wrap,.sales-video-card{border-width:2px}}
+@media(prefers-reduced-motion:reduce){.typing-caret{animation:none}.hero-type-heading{min-height:0}}
